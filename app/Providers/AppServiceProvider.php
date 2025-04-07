@@ -69,7 +69,7 @@ class AppServiceProvider extends ServiceProvider
         $schedule_setting = null;
         $footer_pages = collect();
 
-        // Ensure tables exist before querying
+        // Ensure tables exist before queryings
         if (Schema::hasTable('languages')) {
             $user_languages = Language::where('status', '1')->get();
         }
