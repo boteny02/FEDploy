@@ -88,7 +88,7 @@
     cursor:default
 }
 .wizard>.steps .current a,.wizard>.steps .current a:hover,.wizard>.steps .current a:active{
-    background:#3ea1e4;
+    background:#001a39;
     color:#fff;
     cursor:default
 }
@@ -184,7 +184,7 @@
     margin:0 0 0 1em
 }
 .wizard>.actions a,.wizard>.actions a:hover,.wizard>.actions a:active{
-    background:#3ea1e4;
+    background:#001a39;
     color:#fff;
     display:block;
     padding:.5em 1em;

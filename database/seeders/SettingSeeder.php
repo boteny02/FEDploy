@@ -19,8 +19,8 @@ class SettingSeeder extends Seeder
         
         $setting = Setting::create([
 
-            'title'=>'University System',
-            'meta_title'=>'University System',
+            'title'=>'The Fedpoly Academic Management System (F-AMS)',
+            'meta_title'=>'Fedpoly Academic Management System',
             'logo_path'=>'logo.png',
             'favicon_path'=>'favicon.png',
             'phone'=>'+880123456789',
@@ -33,7 +33,7 @@ class SettingSeeder extends Seeder
             'currency'=>'USD',
             'currency_symbol'=>'$',
             'decimal_place'=>'2',
-            'copyright_text'=>'2022 - University System | Created By_ <a href="https://hitechparks.com/" target="_blank">Hi-Tech Parks</a>',
+            'copyright_text'=>'2022 - Fedpoly Academic Management System (F-AMS) | Created By_ <a href="https://hitechparks.com/" target="_blank">Hi-Tech Parks</a>',
             'status'=>'1'
             
         ]);
