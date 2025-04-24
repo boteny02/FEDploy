@@ -33,7 +33,7 @@ class SettingSeeder extends Seeder
             'currency'=>'USD',
             'currency_symbol'=>'$',
             'decimal_place'=>'2',
-            'copyright_text'=>'2022 - Fedpoly Academic Management System (F-AMS) | Created By_ <a href="https://hitechparks.com/" target="_blank">Hi-Tech Parks</a>',
+            'copyright_text'=>'2022 - Fedpoly Academic Management System (F-AMS)',
             'status'=>'1'
             
         ]);

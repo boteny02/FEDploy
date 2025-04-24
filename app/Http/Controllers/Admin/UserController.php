@@ -130,7 +130,7 @@ class UserController extends Controller
         }
 
 
-        $data['departments'] = Department::where('status', '1')
+        $data['departments'] = Program::where('status', '1')
                         ->orderBy('title', 'asc')->get();
         $data['designations'] = Designation::where('status', '1')
                         ->orderBy('title', 'asc')->get();
@@ -154,7 +154,7 @@ class UserController extends Controller
         $data['view']      = $this->view;
 
         $data['roles'] = Role::orderBy('name', 'asc')->get();
-        $data['departments'] = Department::where('status', '1')
+        $data['departments'] = Program::where('status', '1')
                         ->orderBy('title', 'asc')->get();
         $data['designations'] = Designation::where('status', '1')
                         ->orderBy('title', 'asc')->get();
@@ -370,7 +370,7 @@ class UserController extends Controller
                         })->get();
 
         $data['roles'] = Role::orderBy('name', 'asc')->get();
-        $data['departments'] = Department::where('status', '1')
+        $data['departments'] = Program::where('status', '1')
                         ->orderBy('title', 'asc')->get();
         $data['designations'] = Designation::where('status', '1')
                         ->orderBy('title', 'asc')->get();
@@ -706,7 +706,7 @@ class UserController extends Controller
         $data['access']    = $this->access;
 
         //
-        $data['departments'] = Department::where('status', '1')
+        $data['departments'] = Program::where('status', '1')
                         ->orderBy('title', 'asc')->get();
         $data['designations'] = Designation::where('status', '1')
                         ->orderBy('title', 'asc')->get();
