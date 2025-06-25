@@ -14,7 +14,7 @@
         <form method="POST" action="{{ route($loginRoute) }}">
         @csrf
             <div class="input-group mb-3">
-                <input id="applicant_id" type="" class="form-control @error('applicant_id') is-invalid @enderror" name="applicant_id" value="{{ old('applicant_id') }}" required autocomplete="" placeholder="{{ __('field_applicant_id') }}" autofocus>
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="" placeholder="{{ __('field_email') }}" autofocus>
 
                 @error('email')
                     <span class="invalid-feedback" role="alert">

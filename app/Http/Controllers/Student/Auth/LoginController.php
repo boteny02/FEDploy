@@ -10,12 +10,12 @@ use Auth;
 class LoginController extends Controller
 {
 	/**
-     * This trait has all the login throttling functionality.
-     */
-    use ThrottlesLogins;
-    
-    //Your other code here...
-    /**
+	 * This trait has all the login throttling functionality.
+	 */
+	use ThrottlesLogins;
+
+	//Your other code here...
+	/**
 	 * Max login attempts allowed.
 	 */
 	public $maxAttempts = 5;
@@ -24,15 +24,16 @@ class LoginController extends Controller
 	 * Number of minutes to lock the login.
 	 */
 	public $decayMinutes = 3;
-    
-    /**
-     * Username used in ThrottlesLogins trait
-     * 
-     * @return string
-     */
-    public function username(){
-        return 'email';
-    }
+
+	/**
+	 * Username used in ThrottlesLogins trait
+	 * 
+	 * @return string
+	 */
+	public function username()
+	{
+		return 'applicant_id';
+	}
 
 	/**
 	 * Only guests for "student" guard are allowed except
@@ -42,103 +43,104 @@ class LoginController extends Controller
 	 */
 	public function __construct()
 	{
-	    $this->middleware('guest:student')->except('logout');
+		$this->middleware('guest:student')->except('logout');
 	}
 
-    /**
-     * Show the login form.
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function showLoginForm()
-    {
-        return view('web.student.login',[
-            'loginRoute' => 'student.login',
-            'forgotPasswordRoute' => 'student.password.request',
-        ]);
-    }
-
-    /**
-     * Login the student.
-     * 
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function login(Request $request)
+	/**
+	 * Show the login form.
+	 * 
+	 * @return \Illuminate\Http\Response
+	 */
+	public function showLoginForm()
 	{
-	    $this->validator($request);
-
-	    //check if the user has too many login attempts.
-	    if ($this->hasTooManyLoginAttempts($request)){
-	        //Fire the lockout event.
-	        $this->fireLockoutEvent($request);
-
-	        //redirect the user back after lockout.
-	        return $this->sendLockoutResponse($request);
-	    }
-
-	    //attempt login.
-	    if(Auth::guard('student')->attempt($request->only('email','password'),$request->filled('remember'))){
-	        //Authenticated
-	        return redirect()
-	            ->intended(route('student.dashboard.index'))
-	            ->with('success', __('auth_logged_in'));
-	    }
-
-	    //keep track of login attempts from the user.
-	    $this->incrementLoginAttempts($request);
-
-	    //Authentication failed
-	    return $this->loginFailed();
+		return view('web.student.login', [
+			'loginRoute' => 'student.login',
+			'forgotPasswordRoute' => 'student.password.request',
+		]);
 	}
 
-    /**
-     * Logout the student.
-     * 
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function logout()
+	/**
+	 * Login the student.
+	 * 
+	 * @param \Illuminate\Http\Request $request
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	public function login(Request $request)
 	{
-	    Auth::guard('student')->logout();
+		$this->validator($request);
 
-	    return redirect()
-	        ->route('student.login')
-	        ->with('success', __('auth_logged_out'));
+		//check if the user has too many login attempts.
+		if ($this->hasTooManyLoginAttempts($request)) {
+			//Fire the lockout event.
+			$this->fireLockoutEvent($request);
+
+			//redirect the user back after lockout.
+			return $this->sendLockoutResponse($request);
+		}
+
+		//attempt login.
+		if (Auth::guard('student')->attempt($request->only('applicant_id', 'password'), $request->filled('remember'))) {
+			//Authenticated
+			return redirect()
+				->intended(route('student.dashboard.index'))
+				->with('success', __('auth_logged_in'));
+		}
+
+		//keep track of login attempts from the user.
+		$this->incrementLoginAttempts($request);
+
+		//Authentication failed
+		return $this->loginFailed();
 	}
 
-    /**
-     * Validate the form data.
-     * 
-     * @param \Illuminate\Http\Request $request
-     * @return 
-     */
-    private function validator(Request $request)
+	/**
+	 * Logout the student.
+	 * 
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	public function logout()
 	{
-	    //validation rules.
-	    $rules = [
-	        'email'    => 'required|email|exists:students|min:5|max:191',
-	        'password' => 'required|string|min:6|max:255',
-	    ];
+		Auth::guard('student')->logout();
 
-	    //custom validation error messages.
-	    $messages = [
-	        'email.exists' => __('auth_credentials_not_match'),
-	    ];
-
-	    //validate the request.
-	    $request->validate($rules,$messages);
+		return redirect()
+			->route('student.login')
+			->with('success', __('auth_logged_out'));
 	}
 
-    /**
-     * Redirect back after a failed login.
-     * 
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    private function loginFailed(){
+	/**
+	 * Validate the form data.
+	 * 
+	 * @param \Illuminate\Http\Request $request
+	 * @return 
+	 */
+	private function validator(Request $request)
+	{
+		//validation rules.
+		$rules = [
+			'applicant_id' => 'required|string|exists:students|min:3|max:191',
+			'password' => 'required|string|min:6|max:255',
+		];
 
-	    return redirect()
-	        ->back()
-	        ->withInput()
-	        ->with('error', __('auth_login_failed'));
+		//custom validation error messages.
+		$messages = [
+			'applicant_id.exists' => __('auth_credentials_not_match'),
+		];
+
+		//validate the request.
+		$request->validate($rules, $messages);
+	}
+
+	/**
+	 * Redirect back after a failed login.
+	 * 
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	private function loginFailed()
+	{
+
+		return redirect()
+			->back()
+			->withInput()
+			->with('error', __('auth_login_failed'));
 	}
 }

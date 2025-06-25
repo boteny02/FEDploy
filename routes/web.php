@@ -537,6 +537,10 @@ Route::prefix('student')->name('student.')->namespace('Student')->group(function
         Route::get('/login', 'LoginController@showLoginForm')->name('login');
         Route::post('/login', 'LoginController@login')->name('login.store');
         Route::post('/logout', 'LoginController@logout')->name('logout');
+        
+        // applicant login
+        Route::get('/applicant-login', 'ApplicantLoginController@showLoginForm')->name('applicant.login');
+        Route::post('/applicant-login', 'ApplicantLoginController@login')->name('applicant.login.store');
 
         // Register Routes
         Route::get('/register', 'RegisterController@showRegisterForm')->name('register')->middleware('admission');
